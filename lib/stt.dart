@@ -12,6 +12,7 @@ class STTPage extends StatefulWidget {
   State<StatefulWidget> createState() => _STTPageState();
 }
 
+// 有一个按钮做麦克风 按一次开启麦克风录音 再按一次关闭
 class _STTPageState extends State<StatefulWidget> {
   bool _isListening = false;
   late STTUtil _sttUtil;
@@ -20,6 +21,7 @@ class _STTPageState extends State<StatefulWidget> {
   @override
   void initState() {
     super.initState();
+    // 初始化STT工具类
     _sttUtil = STTUtil();
     _recordText = "请按下麦克风发起对话";
   }
@@ -57,11 +59,13 @@ class _STTPageState extends State<StatefulWidget> {
 
   void _listen() async {
     if (!_isListening) {
+      // 麦克风初始化
       bool available = await _sttUtil.initialize();
       if (available) {
         setState(() {
           _isListening = true;
         });
+        // 监听麦克风的内容
         _sttUtil.startListening((res) => {
               setState(() {
                 _recordText = res;
@@ -73,6 +77,7 @@ class _STTPageState extends State<StatefulWidget> {
       setState(() {
         _isListening = false;
       });
+      // 停止监听
       _sttUtil.stopListening();
     }
   }
@@ -80,6 +85,7 @@ class _STTPageState extends State<StatefulWidget> {
   @override
   void dispose() {
     super.dispose();
+    // 销毁
     _sttUtil.dispose();
   }
 }

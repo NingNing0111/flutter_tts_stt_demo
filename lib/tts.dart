@@ -21,6 +21,7 @@ class _TTSPageState extends State<StatefulWidget> {
   @override
   void initState() {
     super.initState();
+    // 初始化TTS
     _ttsUtil = TTSUtil();
     _ttsUtil.initTTS();
   }
@@ -36,7 +37,6 @@ class _TTSPageState extends State<StatefulWidget> {
             decoration:const  InputDecoration(
               labelText: "输入文本",
               hintText: "需要转为语音的文本",
-
             ),
             controller: _textController,
           ),
@@ -54,6 +54,7 @@ class _TTSPageState extends State<StatefulWidget> {
   }
 
   void toTTS() {
+    // 文字转语音
     _ttsUtil.stop();
     _ttsUtil.speak(_textController.text);
   }

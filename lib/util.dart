@@ -5,6 +5,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:flutter/material.dart';
 
+// 基于单例模式实现的工具类
 class TTSUtil {
   TTSUtil._();
 
@@ -33,9 +34,8 @@ class TTSUtil {
     // 音调
     await flutterTts.setPitch(1.0);
 
-    // text = "你好，我的名字是Star，你是不是韩梅梅？";
     if (text.isNotEmpty) {
-      print(text);
+      log('需要转换的文本：$text');
       await flutterTts.speak(text);
     }
   }
@@ -51,6 +51,7 @@ class TTSUtil {
   }
 }
 
+// STT工具类 单例模式
 class STTUtil {
   STTUtil._();
 
@@ -83,6 +84,7 @@ class STTUtil {
           log('监听到的内容:$result');
           onResult(result.recognizedWords);
         },
+          // 监听的语言
           localeId: "zh_CN"
       );
     }
@@ -113,6 +115,7 @@ enum SpeechToTextState {
   notListening,
 }
 
+// 单词高亮显示 可自己构建一个需要高亮显示的字典树 这个与TTS和STT无关
 final Map<String, HighlightedWord> highlights = {
   'flutter': HighlightedWord(
     onTap: () => print('flutter'),
